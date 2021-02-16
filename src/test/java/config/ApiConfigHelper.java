@@ -20,7 +20,7 @@ public class ApiConfigHelper {
         return getConfig().Post(); 
     }
 
-    private static ApiConfig getConfig() {
+    public static ApiConfig getConfig() {
         return ConfigFactory.newInstance().create(ApiConfig.class);
     }
 }
