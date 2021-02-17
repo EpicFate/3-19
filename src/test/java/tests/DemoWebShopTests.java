@@ -56,8 +56,9 @@ public class DemoWebShopTests {
         String contentType = ApiConfigHelper.getContentType();
         String Post = ApiConfigHelper.getPost();
 
-//        WishlistResponse response = (WishlistResponse) given();
-        Spec.request()
+//        Spec.request()
+        WishlistResponse response = given()
+                .spec(Spec.request())
                 .body(body)
                 .contentType(contentType)
                 .cookie(cookie)
@@ -66,6 +67,9 @@ public class DemoWebShopTests {
                 .then()
                 .statusCode(200)
                 .extract().as(WishlistResponse.class);
+
+        assertEquals(response.getSuccess(), true);
+
 
 //        assertEquals(response.getSuccess(), true);
     }
