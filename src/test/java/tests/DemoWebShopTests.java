@@ -2,63 +2,24 @@ package tests;
 
 import config.ApiConfigHelper;
 import org.junit.jupiter.api.Test;
-import spec.Spec;
-import utils.FileUtils;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static template.ReportTemplate.filters;
 
 public class DemoWebShopTests {
 
     @Test
-    void WishlistTestWithUtils() {
-
-//        given()
-        Spec.request()
-                .body(FileUtils.readFromFile("src/test/resources/body.txt"))
-                .contentType("application/x-www-form-urlencoded; charset=UTF-8")
-                .cookie(FileUtils.readFromFile("src/test/resources/cookie.txt"))
-                .when()
-                .post("http://demowebshop.tricentis.com/addproducttocart/details/53/2")
-                .then()
-                .statusCode(200)
-                .body("success", is(true))
-                .body("message", is("The product has been added to your <a href=\"/wishlist\">wishlist</a>"));
-    }
-
-    @Test
-    void WishlistTestWithOwner() {
+    void WishlistTest() {
 
         String body = ApiConfigHelper.getBody();
         String cookie = ApiConfigHelper.getCookie();
         String contentType = ApiConfigHelper.getContentType();
         String Post = ApiConfigHelper.getPost();
 
-//        given()
-        Spec.request()
-                .body(body)
-                .contentType(contentType)
-                .cookie(cookie)
-                .when()
-                .post(Post)
-                .then()
-                .statusCode(200)
-                .body("success", is(true))
-                .body("message", is("The product has been added to your <a href=\"/wishlist\">wishlist</a>"));
-    }
-
-    @Test
-    void WishlistTestWithOwnerAndModel() {
-
-        String body = ApiConfigHelper.getBody();
-        String cookie = ApiConfigHelper.getCookie();
-        String contentType = ApiConfigHelper.getContentType();
-        String Post = ApiConfigHelper.getPost();
-
-//        Spec.request()
         WishlistResponse response = given()
-                .spec(Spec.request())
+                .filter(filters().customTemplates())
+                .log().uri()
                 .body(body)
                 .contentType(contentType)
                 .cookie(cookie)
@@ -68,9 +29,6 @@ public class DemoWebShopTests {
                 .statusCode(200)
                 .extract().as(WishlistResponse.class);
 
-        assertEquals(response.getSuccess(), true);
-
-
-//        assertEquals(response.getSuccess(), true);
+        assertTrue(response.getSuccess());
     }
 }

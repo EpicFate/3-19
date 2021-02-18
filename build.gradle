@@ -31,7 +31,6 @@ allure {
 
 dependencies {
     testCompile(
-
             "io.qameta.allure:allure-java-commons:2.13.5",
             "io.qameta.allure:allure-rest-assured:2.13.5",
             "io.rest-assured:rest-assured:4.3.1",
