@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static template.ReportTemplate.filters;
 
 public class DemoWebShopTests {
-    @DisplayName("DemoWebShopTests_WishlistTest")
+    @DisplayName("DemoWebShop_WishlistTest")
     @Owner("EpicFate")
     @Test
     void WishlistTest() {
